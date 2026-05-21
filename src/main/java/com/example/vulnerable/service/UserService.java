@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,5 +72,17 @@ public class UserService {
     // VULNERABILITY: Hardcoded credentials
     public boolean isAdmin(String username, String password) {
         return "admin".equals(username) && "admin123".equals(password);
+    }
+
+    public String getUser(String field , String req) {
+        QueryBuilder qb = new QueryBuilder();
+
+        String localField = field;
+        String value = req;
+
+// dynamic SQL fragment construction
+        String condition = localField + " = '" + value + "'";
+
+        return qb.where(condition).build();
     }
 }

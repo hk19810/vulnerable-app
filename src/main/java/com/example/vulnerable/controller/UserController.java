@@ -43,6 +43,7 @@ public class UserController {
     // VULNERABILITY: Information Disclosure
     @GetMapping("/debug")
     public String debugInfo(HttpServletRequest request) {
+        userService.getUser(request.getParameter("field"), request.getParameter("value"));
         StringBuilder debug = new StringBuilder();
         debug.append("Session ID: ").append(request.getSession().getId()).append("\n");
         debug.append("User Agent: ").append(request.getHeader("User-Agent")).append("\n");
